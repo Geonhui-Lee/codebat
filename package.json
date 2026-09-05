@@ -1,0 +1,9 @@
+{
+  "name": "codebat",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Windows launchers for locally installed AI agent software",
+  "devDependencies": {
+    "opencode-ai": "^1.18.29"
+  }
+}
