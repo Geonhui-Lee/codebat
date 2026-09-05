@@ -142,6 +142,16 @@ targeted rebuild if installing Pi leaves OpenCode unprepared.
 The generated `node_modules`, `.opencode`, and `.pi` directories are ignored by
 Git.
 
+### Windows ARM64
+
+OpenCode's native Windows ARM64 build currently cannot initialize its terminal
+renderer because its bundled Bun runtime does not provide the required FFI
+support ([upstream issue](https://github.com/anomalyco/opencode/issues/38520)).
+On Windows ARM64, `_opencode.bat` automatically installs the matching x64
+baseline runtime under `codebat\.opencode` and runs it through Windows 11's x64
+emulation. This workaround is local to Codebat and does not install or
+configure anything system-wide.
+
 ## Updating Codebat in Your Project
 
 Your collaborators should use normal `git pull` commands to receive the
@@ -180,6 +190,15 @@ You can also run the installation directly from the submodule:
 cd codebat
 npm install --save-dev --ignore-scripts opencode-ai
 npm rebuild opencode-ai
+```
+
+If the OpenCode terminal UI reports that `bun:ffi dlopen()` is unavailable,
+update Codebat and run `_opencode.bat` again. Windows ARM64 requires the local
+x64 compatibility runtime described above. As a fallback, OpenCode's web
+interface does not use the affected terminal renderer:
+
+```bat
+codebat\_opencode.bat web
 ```
 
 ### Pi installation fails
