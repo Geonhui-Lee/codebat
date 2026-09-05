@@ -27,8 +27,13 @@ use an AI agent, then add Codebat as a direct child of that repository:
 
 ```bat
 git submodule add https://github.com/Geonhui-Lee/codebat.git codebat
+git config submodule.recurse true
 git commit -m "chore: add Codebat submodule"
 ```
+
+The `git config` command enables recursive submodule handling for future
+`git pull` commands in this local project without changing your global Git
+configuration.
 
 Launch OpenCode:
 
