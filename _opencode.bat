@@ -28,7 +28,11 @@ if exist "%OPENCODE_CMD%" (
 )
 
 echo OpenCode is not installed locally. Installing it now...
-call npm install --save-dev opencode-ai
+call npm install --save-dev --ignore-scripts opencode-ai
+if errorlevel 1 goto :install_failed
+
+echo Running OpenCode's required installation step...
+call npm rebuild opencode-ai
 if errorlevel 1 goto :install_failed
 
 if not exist "%OPENCODE_CMD%" goto :install_failed
@@ -40,7 +44,7 @@ pushd "%WORKSPACE_DIR%" >nul 2>&1
 if errorlevel 1 goto :workspace_failed
 
 echo Running OpenCode in "%CD%"...
-call "%OPENCODE_CMD%"
+call "%OPENCODE_CMD%" %*
 set "exitCode=%errorlevel%"
 
 popd

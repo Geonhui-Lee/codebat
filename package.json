@@ -4,6 +4,7 @@
   "private": true,
   "description": "Windows launchers for locally installed AI agent software",
   "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.85.0",
     "opencode-ai": "^1.18.29"
   }
 }
