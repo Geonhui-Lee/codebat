@@ -6,5 +6,11 @@
   "devDependencies": {
     "@earendil-works/pi-coding-agent": "^0.85.0",
     "opencode-ai": "^1.18.29"
+  },
+  "allowScripts": {
+    "@google/genai@1.52.0": true,
+    "esbuild@0.28.1": true,
+    "protobufjs@7.6.5": true,
+    "opencode-ai@1.18.29": true
   }
 }
