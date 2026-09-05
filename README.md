@@ -22,12 +22,14 @@ OpenCode is the first supported agent.
 
 ## Quick Start
 
+### Add Codebat to Your Project
+
 Open Windows Command Prompt in the root of the repository where you want to
 use an AI agent, then add Codebat as a direct child of that repository:
 
 ```bat
 git submodule add https://github.com/Geonhui-Lee/codebat.git codebat
-git config submodule.recurse true
+git config --local submodule.recurse true
 git commit -m "chore: add Codebat submodule"
 ```
 
@@ -51,20 +53,59 @@ OpenCode with the parent repository as its working directory.
 > `tools\codebat` would make `tools` the workspace instead of the repository
 > root.
 
-## Cloning a Project
+## Collaborators on Your Project
 
-To clone a repository and initialize Codebat at the same time, use:
+This section is for people who collaborate on your project after you add
+Codebat as a submodule, not for contributors to Codebat itself. Each
+collaborator must initialize Codebat in their own clone.
+
+`git config --local` writes to each clone's `.git/config`, which is not
+committed with your project. Every collaborator should therefore enable
+recursive submodule handling once after cloning.
+
+### Fresh Clone
+
+Your collaborator can clone your project and initialize Codebat at the same
+time:
 
 ```bat
 git clone --recurse-submodules <repository-url>
+cd <repository-directory>
+git config --local submodule.recurse true
 ```
 
-If the repository was already cloned without its submodules, initialize them
-with:
+### Existing Clone
+
+If your collaborator already cloned your project without its submodules, they
+should run these commands from the project root:
 
 ```bat
 git submodule update --init --recursive
+git config --local submodule.recurse true
 ```
+
+They can then launch OpenCode:
+
+```bat
+codebat\_opencode.bat
+```
+
+The first launch installs OpenCode locally for that collaborator. Their
+`codebat\node_modules` and `codebat\.opencode` directories remain local and
+are ignored by Git.
+
+### Daily Use
+
+After this one-time setup, a collaborator can pull your project's changes and
+launch OpenCode normally:
+
+```bat
+git pull
+codebat\_opencode.bat
+```
+
+The recursive Git configuration makes `git pull` update Codebat to the exact
+commit recorded by your project.
 
 ## How It Works
 
@@ -78,9 +119,14 @@ git submodule update --init --recursive
 
 The generated `node_modules` and `.opencode` directories are ignored by Git.
 
-## Updating Codebat
+## Updating Codebat in Your Project
 
-From the parent repository, update the submodule and record its new commit:
+Your collaborators should use normal `git pull` commands to receive the
+Codebat version selected by your project. They should not run the following
+commands unless they are responsible for maintaining your project's Codebat
+version.
+
+To intentionally move your project to a newer Codebat commit, run:
 
 ```bat
 git submodule update --remote codebat
